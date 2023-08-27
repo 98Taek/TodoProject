@@ -13,6 +13,7 @@
                     {{ task.title }}
                     Important_Level: {{ task.important }}
                     completed: {{ task.completed }}
+                    <a href="{% url 'task:task_delete' todo.id task.id %}">Delete</a>
                 </div>
             </li>
         {% endfor %}

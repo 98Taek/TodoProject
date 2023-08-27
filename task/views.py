@@ -26,7 +26,7 @@ def task_list(request, todo_id):
             form.save()
     else:
         form = TaskForm()
-    return render(request, 'task/task_list.html', {'tasks': tasks, 'form': form})
+    return render(request, 'task/task_list.html', {'todo': todo, 'tasks': tasks, 'form': form})
 
 
 def todo_delete(request, todo_id):
@@ -35,3 +35,10 @@ def todo_delete(request, todo_id):
         todo.delete()
         return redirect('task:home')
     return render(request, 'task/delete.html', {'todo': todo})
+
+
+def task_delete(request, todo_id, task_id):
+    todo = TodoBase.objects.get(id=todo_id)
+    task = Task.objects.get(id=task_id, todolist=todo)
+    task.delete()
+    return redirect('task:task_list', todo_id)
