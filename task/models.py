@@ -19,7 +19,7 @@ class Task(models.Model):
     todolist = models.ForeignKey(TodoBase, on_delete=models.CASCADE, related_name='tasks')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    important = models.IntegerField(choices=level)
+    important = models.IntegerField(choices=level, default=0)
     completed = models.BooleanField(default=False)
 
     class Meta:
