@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
-from task.forms import TodoForm
+from task.forms import TodoForm, TaskForm
 from task.models import TodoBase, Task
 
 
@@ -16,13 +16,21 @@ def todo_list(request):
 
 
 def task_list(request, todo_id):
-    tasks = Task.objects.filter(id=todo_id)
-    return render(request, 'task/task_list.html', {'tasks': tasks})
+    todo = get_object_or_404(TodoBase, id=todo_id)
+    tasks = todo.tasks.filter(id=todo_id)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=todo)
+        if form.is_valid():
+            form.save(commit=False)
+            form.save()
+    else:
+        form = TaskForm()
+    return render(request, 'task/task_list.html', {'tasks': tasks, 'form': form})
 
 
-def task_update(request):
-    pass
-
-
-def task_delete(request):
-    pass
+def todo_delete(request, todo_id):
+    todo = TodoBase.objects.get(id=todo_id)
+    if request.method == 'POST':
+        todo.delete()
+        return redirect('task:home')
+    return render(request, 'task/delete.html', {'todo': todo})

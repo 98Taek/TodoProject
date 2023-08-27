@@ -2,14 +2,17 @@
 
 {% block title %}Todo{% endblock title %}
 {% block content %}
-<form action="" method="post">
-    {{ form.as_p }}
-    <input type="submit" value="Todo">
-    {% csrf_token %}
-    <ul>
-        {% for todo in todos %}
-            <li><a href="{% url 'task:task_list' todo.id %}">{{ todo.title }}</a></li>
-        {% endfor %}
-    </ul>
-</form>
+    <form action="" method="post">
+        {{ form.as_p }}
+        <input type="submit" value="Todo">
+        {% csrf_token %}
+        <ul>
+            {% for todo in todos %}
+                <li>
+                    <a href="{% url 'task:task_list' todo.id %}">{{ todo.title }}</a>
+                    <a href="{% url 'task:todo_delete' todo.id %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </form>
 {% endblock content %}

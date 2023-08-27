@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}Task{% endblock title %}
 {% block content %}
-<ul>
-    {% for task in tasks %}
-        <li>{{ task.title }}</li>
-    {% endfor %}
-</ul>
+    <form action="" method="post">
+        {{ form.as_p }}
+        <input type="submit" value="Task">
+        {% csrf_token %}
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <div>
+                    {{ task.title }}
+                    Important_Level: {{ task.important }}
+                    completed: {{ task.completed }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock content %}
