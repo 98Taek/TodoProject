@@ -9,12 +9,13 @@
     <ul>
         {% for task in tasks %}
             <li>
-                <div>
-                    {{ task.title }}
-                    Important_Level: {{ task.important }}
-                    completed: {{ task.completed }}
+                <p>
+                    title: {{ task.title }} <br>
+                    description: {{ task.description }} <br>
+                    Important_Level: {{ task.important }} <br>
+                    completed: {{ task.completed }} <br>
                     <a href="{% url 'task:task_delete' todo.id task.id %}">Completed</a>
-                </div>
+                </p>
             </li>
         {% endfor %}
     </ul>

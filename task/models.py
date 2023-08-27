@@ -13,13 +13,17 @@ class TodoBase(models.Model):
 
 
 class Task(models.Model):
-    level = ((0, '1'), (1, '2'), (2, '3'), (3, '4'), (4, '5'))
+    class ChoiceLevel(models.TextChoices):
+        LOW = 'Low'
+        NORMAL = 'Normal'
+        HIGH = 'High'
+
     title = models.CharField(max_length=100)
     description = models.TextField()
     todolist = models.ForeignKey(TodoBase, on_delete=models.CASCADE, related_name='tasks')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    important = models.IntegerField(choices=level, default=0)
+    important = models.CharField(max_length=6, choices=ChoiceLevel.choices, default=ChoiceLevel.NORMAL)
     completed = models.BooleanField(default=False)
 
     class Meta:

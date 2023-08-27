@@ -10,6 +10,7 @@ def todo_list(request):
         form = TodoForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('task:home')
     else:
         form = TodoForm()
     return render(request, 'task/list.html', {'todos': todos, 'form': form})
@@ -24,6 +25,7 @@ def task_list(request, todo_id):
             form = form.save(commit=False)
             form.todolist = todo
             form.save()
+            return redirect('task:task_list', todo_id)
     else:
         form = TaskForm()
     return render(request, 'task/task_list.html', {'todo': todo, 'tasks': tasks, 'form': form})
