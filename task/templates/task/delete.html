@@ -1,6 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Delete Todo{% endblock title %}
+
+{% block content %}
 <p>Are you sure you want to delete {{ todo }}?</p>
 <a href="{% url 'task:home' %}">Cancel</a>
 <form action="" method="post">
     {% csrf_token %}
     <input type="submit" value="confirm">
 </form>
+{% endblock content %}
