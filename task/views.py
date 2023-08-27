@@ -17,11 +17,12 @@ def todo_list(request):
 
 def task_list(request, todo_id):
     todo = get_object_or_404(TodoBase, id=todo_id)
-    tasks = todo.tasks.filter(id=todo_id)
+    tasks = todo.tasks.all()
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=todo)
+        form = TaskForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
+            form = form.save(commit=False)
+            form.todolist = todo
             form.save()
     else:
         form = TaskForm()
