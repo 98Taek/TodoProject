@@ -38,6 +38,7 @@ def task_list(request, todo_id):
     return render(request, 'task/task_list.html', {'todo': todo, 'tasks': tasks, 'form': form})
 
 
+@login_required
 def todo_delete(request, todo_id):
     todo = TodoBase.objects.get(id=todo_id)
     if request.method == 'POST':
@@ -46,6 +47,7 @@ def todo_delete(request, todo_id):
     return render(request, 'task/delete.html', {'todo': todo})
 
 
+@login_required
 def task_delete(request, todo_id, task_id):
     todo = TodoBase.objects.get(id=todo_id)
     task = Task.objects.get(id=task_id, todolist=todo)
