@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
 class TodoBase(models.Model):
+    creator = models.ForeignKey(User, related_name='todo_creator', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -18,6 +20,7 @@ class Task(models.Model):
         NORMAL = 'Normal'
         HIGH = 'High'
 
+    creator = models.ForeignKey(User, related_name='task_creator', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
     todolist = models.ForeignKey(TodoBase, on_delete=models.CASCADE, related_name='tasks')
