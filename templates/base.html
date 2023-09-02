@@ -18,6 +18,7 @@
     </p>
 {% else %}
     <h1>Please Log in First.</h1>
+    <a href="{% url 'password_reset' %}">Forgotten your password?</a>
 {% endif %}
 {% block content %}
 {% endblock content %}
