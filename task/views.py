@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
 from task.forms import TodoForm, TaskForm
@@ -11,6 +12,8 @@ def todo_list(request):
     if request.method == 'POST':
         form = TodoForm(request.POST)
         if form.is_valid():
+            new_todo = form.save(commit=False)
+            new_todo.creator = request.user
             form.save()
             return redirect('task:home')
     else:
@@ -27,6 +30,7 @@ def task_list(request, todo_id):
         if form.is_valid():
             form = form.save(commit=False)
             form.todolist = todo
+            form.creator = request.user
             form.save()
             return redirect('task:task_list', todo_id)
     else:
