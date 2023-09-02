@@ -8,7 +8,7 @@ from task.models import TodoBase, Task
 
 @login_required
 def todo_list(request):
-    todos = TodoBase.objects.all()
+    todos = TodoBase.objects.filter(creator=request.user)
     if request.method == 'POST':
         form = TodoForm(request.POST)
         if form.is_valid():
@@ -24,7 +24,7 @@ def todo_list(request):
 @login_required
 def task_list(request, todo_id):
     todo = get_object_or_404(TodoBase, id=todo_id)
-    tasks = todo.tasks.all()
+    tasks = todo.tasks.filter(creator=request.user)
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
