@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from task.forms import TodoForm, TaskForm
 from task.models import TodoBase, Task
 
 
+@login_required
 def todo_list(request):
     todos = TodoBase.objects.all()
     if request.method == 'POST':
@@ -16,6 +18,7 @@ def todo_list(request):
     return render(request, 'task/list.html', {'todos': todos, 'form': form})
 
 
+@login_required
 def task_list(request, todo_id):
     todo = get_object_or_404(TodoBase, id=todo_id)
     tasks = todo.tasks.all()
