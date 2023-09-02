@@ -6,7 +6,7 @@ from task.models import TodoBase, Task
 class TodoForm(forms.ModelForm):
     class Meta:
         model = TodoBase
-        fields = '__all__'
+        fields = ['title']
 
 
 class TaskForm(forms.ModelForm):
