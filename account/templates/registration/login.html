@@ -4,10 +4,21 @@
 
 {% block content %}
     <form action="" method="post">
-        {{ form.as_p }}
-        <input type="submit" value="Login">
+        <div class="form-floating mb-3">
+            {{ form.username }}
+            <label for="floatingInput">ID</label>
+        </div>
+        <div class="form-floating">
+            {{ form.password }}
+            <label for="floatingPassword">Password</label>
+        </div>
+        <br>
+        <input type="submit" value="Login" class="form-floating form-control btn btn-primary">
         {% csrf_token %}
     </form>
+    <p>
+        <a href="{% url 'password_reset' %}">Forgotten your password?</a>
+    </p>
     <p>
         If you don't have account <a href="{% url 'register' %}">Register here.</a>
     </p>
