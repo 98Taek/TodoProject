@@ -10,15 +10,32 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body class="container">
-{% if request.user.is_authenticated %}
-    <h1><a href="{% url 'task:home' %}">Home</a></h1>
-    <a href="{% url 'logout' %}">Logout</a>
-    <p>
-        If you want to change password, <a href="{% url 'password_change' %}">click here.</a>
-    </p>
-{% else %}
-    <h1>Please Log in First.</h1>
-{% endif %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'task:home' %}" class="nav-link active" aria-current="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'password_change' %}" class="nav-link active">Password Change</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="nav-link active">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="justify-content-center"><h2>Log in</h2></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
 {% block content %}
 {% endblock content %}
 
