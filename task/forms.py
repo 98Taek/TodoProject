@@ -12,4 +12,4 @@ class TodoForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'important', 'completed']
+        fields = ['title', 'description', 'important']
